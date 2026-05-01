@@ -229,11 +229,11 @@ class RecommendationSystem:
             author_score = 0
         
         # Calculate rating similarity: average rating of the two node books normalized to 0-1 scale
-        avg_rating = (book1.rating + book2.rating) / 2
-        rating_score = avg_rating / 5
+        # avg_rating = (book1.rating + book2.rating) / 2
+        # rating_score = avg_rating / 5
 
-        # Final similarity score is a weighted sum of genre, author, and rating similarities
-        similarity = genre_score + author_score + rating_score
+        # Final similarity score is a weighted sum of genre and author similarities
+        similarity = genre_score + author_score 
 
         return similarity, shared_genres
     
@@ -326,7 +326,7 @@ def main():
     print("Book Recommendation System")
     print("Books loaded:", len(system.books))
 
-    print("The purpose of this system is to recommend books based on shared genres, author, and rating. It would help you develop a path of book recoemmndations from a book you like to a book that you would like to read and enjoy. You can also search for books and view book details.")
+    print("The purpose of this system is to recommend books based on shared genres and author. It would help you develop a path of book recoemmndations from a book you like to a book that you would like to read and enjoy. You can also search for books and view book details.")
 
     while True:
         print("\nChoose what you want to do:")
@@ -376,12 +376,12 @@ def main():
                 print("No path found.")
             else:
                 print("\nRecommended path:")
-                print(" → ".join(path))
+                print(" -- ".join(path))
 
                 explanation = system.explain_path(path)
                 for step in explanation:
                     print()
-                    print(step["from"], "→", step["to"])
+                    print(step["from"], "--", step["to"])
                     print("Shared genres:", ", ".join(step["shared_genres"]))
                     print("Similarity score:", round(step["similarity_score"], 2))
 
